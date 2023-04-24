@@ -64,7 +64,7 @@ function GameTile(props) {
   console.log("props.tileArray[props.id] = " + props.tileArray[props.id].id + "  props.tileArray[props.id].value = " + props.tileArray[props.id].value);
   if (props.tileArray[props.id].value) {
     //tile is purple
-    tileColor = 'purple';
+    tileColor = 'orange';
   }
   else {
     //tile is white
