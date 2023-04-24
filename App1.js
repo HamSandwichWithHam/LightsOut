@@ -37,23 +37,7 @@ function resolveMove(props) {
       tempArray[id] = { id: id, value: true };
     }
   }
-  let darkCo = 0;
-console.log(tempArray[0]);
-console.log(tempArray[0].value);
-  for (let newItemCo = 0; newItemCo < (numRows * numRows); newItemCo++) {
-    console.log('debug: ', newItemCo, tempArray[newItemCo])
-    if (tempArray[newItemCo] && tempArray[newItemCo].value) {
-      darkCo++;
-    };
-  };
   props.setTileArray(tempArray);
-  console.log("In resolveMove numRows = " + numRows);
-  console.log("darkCo = " + darkCo);
-  if (darkCo === (numRows * numRows)) {
-    return (
-      <View style={{ fontSize: 50 }}>YOU WIN!</View>
-    )
-  }
 }
 
 //need some CSS
@@ -64,7 +48,7 @@ function GameTile(props) {
   console.log("props.tileArray[props.id] = " + props.tileArray[props.id].id + "  props.tileArray[props.id].value = " + props.tileArray[props.id].value);
   if (props.tileArray[props.id].value) {
     //tile is purple
-    tileColor = 'red';
+    tileColor = 'rebeccapurple';
   }
   else {
     //tile is white
@@ -87,15 +71,9 @@ function GameTile(props) {
   )
 }
 
-
-
-function GameBoard(props) {
-  console.log("In GameBoard. numRows = " + props.numRows);
-  const [tileArray, setTileArray] = useState([]);
-  //set up gameboard here
-  const numRows = 3;
-  useEffect(() => {
-    //console.log('STARTING USEEFFECT');
+useEffect(() => {
+    console.log('STARTING USEEFFECT');
+    const [tileArray, setTileArray] = useState([]);
     let tempArray = [];
     let id;
     let value;
@@ -112,20 +90,43 @@ function GameBoard(props) {
     }
     setTileArray(tempArray);
   }, []);
+
+function GameBoard(props) {
+  console.log("In GameBoard. numRows = " + props.numRows);
+  //const [tileArray, setTileArray] = useState([]);
+  //set up gameboard here
+  //const numRows = 3;
+  /*useEffect(() => {
+    console.log('STARTING USEEFFECT');
+    let tempArray = [];
+    let id;
+    let value;
+    for (let itemCo = 0; itemCo < (numRows * numRows); itemCo++) {
+      id = itemCo;//set item number
+      let randNum = Math.floor(Math.random() * 2);
+      if (randNum < 1) {
+        value = true;
+      }
+      else {
+        value = false;
+      }
+      tempArray.push({ id: id, value: value })
+    }
+    setTileArray(tempArray);
+  }, []);*/
   let darkCo = 0;
-if (tileArray.length > 1){
+  console.log("TILEARRAY1 = " + tileArray[1].value);
   for (let newItemCo = 0; newItemCo < (numRows * numRows); newItemCo++) {
-    //console.log("IN GAMEBOARD");
-    //console.log(tileArray);
     if (tileArray[newItemCo].value) {
       darkCo++;
     }
   }
-}
   if (darkCo < (numRows * numRows)) {
     return (
       <View style={{
         alignItems: 'center',
+
+
       }}>
         <FlatList
           scrollEnabled={false}
@@ -148,7 +149,7 @@ if (tileArray.length > 1){
 
 
 function Fullpage() {//onPress go to GameBoard
-  [numRows, changeNumRows] = useState(3);
+  [numRows, changeNumRows] = useState(5);
   return (
     <GameBoard numRows={numRows} />
   );
